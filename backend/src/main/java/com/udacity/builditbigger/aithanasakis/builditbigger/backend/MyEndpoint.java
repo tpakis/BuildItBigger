@@ -3,6 +3,7 @@ package com.udacity.builditbigger.aithanasakis.builditbigger.backend;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.udacity.builditbigger.aithanasakis.jokesmith.JokeSmith;
 
 import javax.inject.Named;
 
@@ -23,6 +24,15 @@ public class MyEndpoint {
     public MyBean sayHi(@Named("name") String name) {
         MyBean response = new MyBean();
         response.setData("Hi, " + name);
+
+        return response;
+    }
+
+    @ApiMethod(name = "tellJoke")
+    public MyBean tellJoke() {
+        MyBean response = new MyBean();
+        JokeSmith jokeSmith = new JokeSmith();
+        response.setData(jokeSmith.getJoke());
 
         return response;
     }
