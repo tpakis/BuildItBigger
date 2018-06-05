@@ -1,8 +1,11 @@
 package com.udacity.builditbigger.aithanasakis.builditbigger;
 
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -10,26 +13,39 @@ import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.builditbigger.aithanasakis.builditbigger.backend.myApi.MyApi;
+import com.udacity.builditbigger.aithanasakis.jokesactivity.JokesActivity;
 import com.udacity.builditbigger.aithanasakis.jokesmith.JokeSmith;
 
 import java.io.IOException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     JokeSmith jokeSmith;
+    @BindView(R.id.testing)
     TextView testing;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        testing = (TextView) findViewById(R.id.testing);
+        ButterKnife.bind(this);
+        progressBar.setVisibility(View.VISIBLE);
         jokeSmith = new JokeSmith();
         JokeTask jokeTask = new JokeTask();
         jokeTask.execute();
     }
 
-    public void showJoke(String joke){
-        testing.setText(joke);
+    public void showJoke(String joke) {
+        progressBar.setVisibility(View.GONE);
+        Intent intent = new Intent(this, JokesActivity.class);
+        intent.putExtra(Constants.JOKE_INTENNT, joke);
+        startActivity(intent);
+        //   testing.setText(joke);
     }
 
     public class JokeTask extends AsyncTask<Void, Void, String> {
