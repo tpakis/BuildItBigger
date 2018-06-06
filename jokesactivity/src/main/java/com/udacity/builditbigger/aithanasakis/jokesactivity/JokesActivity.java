@@ -10,8 +10,9 @@ public class JokesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_jokes);
-        if (getIntent().getExtras()!=null) {
+        if (getIntent().getExtras()!=null && getIntent().hasExtra(JOKE_INTENNT)) {
             joke = getIntent().getExtras().getString(JOKE_INTENNT);
         }
         TextView testing = (TextView) findViewById(R.id.testing);
