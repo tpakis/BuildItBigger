@@ -5,6 +5,9 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.2'
@@ -25,3 +28,15 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task startTest{
+    dependsOn ":app:connectedAndroidTest"
+    finalizedBy ":backend:appengineStop"
+}
+
+task runAndroidTest{
+    dependsOn ":backend:appengineStart"
+    finalizedBy "startTest"
+}
+
+

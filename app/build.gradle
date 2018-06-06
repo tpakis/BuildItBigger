@@ -13,6 +13,7 @@ buildscript {
 
 
 android {
+    flavorDimensions "default"
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.udacity.builditbigger.aithanasakis.builditbigger"
@@ -26,6 +27,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        paid{
+            applicationIdSuffix ".paid"
+        }
+        free{
+            applicationIdSuffix ".free"
         }
     }
 }
@@ -49,5 +58,7 @@ dependencies {
     //Butterknife
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    //
+    //ads
+    freeImplementation 'com.google.android.gms:play-services-ads:15.0.0'
+
 }
